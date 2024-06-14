@@ -1,0 +1,49 @@
+
+<div class="container">
+  <div class="user-title-container">
+    <div></div>
+    <h1 class="user-title">Listing Users</h1>
+    <div class="logout-container">
+      <%= button_to "Sign out", destroy_admin_session_path, class:'logout', method: :delete %>
+    </div>
+  </div>
+  
+  <div class="button-create-container">
+  <%= link_to 'Create User', new_user_path, class: 'button-create' %>
+  </div>
+
+  <% if @users.present? %>
+    <div class="row justify-content-center">
+      <table class="table table-bordered">
+        <thead>
+          <tr>
+            <th scope="col">Name</th>
+            <th scope="col">User Number</th>
+            <th scope="col">Status</th>
+            <th scope="col" colspan="3">Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @users.each do |user| %>
+            <tr>
+              <td><%= user.name %></td>
+              <td><%= user.user_num %></td>
+              <td><%= user.status %></td>
+              <td><%= link_to 'Show', user_path(user.id) %></td>
+              <td><%= link_to 'Edit', edit_user_path(user.id) %></td>  
+              <td><%= link_to 'Delete', user_path(user.id), data: {turbo_method: :delete, turbo_confirm: 'Are you sure?'} %></td>           
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  <% else %>
+    <div class="p-3 mb-2 bg-light text-dark">
+      <span class="text-info font-weight-bold">Welcome! </span>
+      Create user
+    </div>
+  <% end %>
+
+
+
+</div>

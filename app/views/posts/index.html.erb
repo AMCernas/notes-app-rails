@@ -1,0 +1,47 @@
+<div class="container">
+  <div class="user-title-container">
+    <div></div>
+    <h1 class="user-title">Listing Posts</h1>
+    <div class="logout-container">
+      <%= button_to "Sign out", logout_path, class:'logout', method: :delete %>
+    </div>
+  </div>
+
+  <div class="button-create-container">
+    <% if allowed_to?(:create?, Post) %>
+      <%= link_to 'Create Post', new_post_path, class: 'button-create' %>
+    <% end %>
+  </div>
+
+  <div class="notes-container">
+    <% if @posts.present? %>
+      <div class="notes-grid">
+        <% @posts.each do |post| %>
+          <div class="note-item">
+            <div class="notes-header">
+            <% if allowed_to?(:destroy?, record: post) %>
+              <p><%= link_to 'X', post_path(post.id), data: {turbo_method: :delete, turbo_confirm: 'Are you sure?'} %></p>
+            <% end %>            
+            </div>
+            <h2><%= post.title %></h2>
+            <p><%= post.description %></p>
+            <p><b>status:</b> <%= post.status %></p>
+            <div class="post-buttons">
+              <%= link_to 'Show', post_path(post.id), class: 'buttons-post' %>
+              <% if allowed_to?(:update?, record: post) %>
+                <%= link_to 'Edit', edit_post_path(post.id), class: 'buttons-post' %> 
+              <% end %>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    <%else%> 
+      <div class="p-3 mb-2 bg-light text-dark">
+        <span class="text-info font-weight-bold">Welcome! </span>
+        Create your first post
+      </div>
+    <%end%>
+  </div>
+
+</div>
+

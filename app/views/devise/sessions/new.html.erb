@@ -1,0 +1,26 @@
+<div class="login-container">
+<h1 class="login-title"> Admin Login </h1>
+
+<div class="user-outer-login-container">
+  <div class="user-inner-login-container">
+    <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+      <div class="field user-login-container">
+        <%= f.label :email %>
+        <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
+      </div>
+
+      <div class="field user-login-container">
+        <%= f.label :password %>
+        <%= f.password_field :password, autocomplete: "current-password" %>
+      </div>
+
+      <div class="actions user-button-container">
+        <%= f.submit "Log in", class: 'form-control btn-primary' %>
+      </div>
+    <% end %>
+  </div>
+</div>
+
+<%= link_to "User login", root_path, class: 'login-admin' %>
+
+</div>
